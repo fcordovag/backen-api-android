@@ -51,7 +51,8 @@ $ yarn run start:prod
 # development
 $ docker-compose up
 Debes tener instalador docker en tu computador
-# watch mode
+
+```
 
 ## Test
 
