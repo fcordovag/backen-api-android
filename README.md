@@ -45,6 +45,14 @@ $ yarn run start:dev
 $ yarn run start:prod
 ```
 
+## Running DB
+
+```bash
+# development
+$ docker-compose up
+Debes tener instalador docker en tu computador
+# watch mode
+
 ## Test
 
 ```bash
