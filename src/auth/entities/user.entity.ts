@@ -1,8 +1,11 @@
+import { Invoice } from 'src/invoices/entities/invoice.entity';
+import { Product } from 'src/products/entities/product.entity';
 import {
   BeforeInsert,
   BeforeUpdate,
   Column,
   Entity,
+  OneToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
 
@@ -37,6 +40,12 @@ export class User {
     default: ['client'],
   })
   roles: string[];
+
+  @OneToMany(() => Product, (product) => product.user)
+  product: Product;
+
+  @OneToMany(() => Invoice, (invoice) => invoice.customer)
+  invoice: Invoice;
 
   @BeforeInsert()
   checkFieldsBeforeInsert() {
