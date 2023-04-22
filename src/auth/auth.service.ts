@@ -69,13 +69,16 @@ export class AuthService {
     if (!bcrypt.compareSync(password, user.password))
       throw new BadRequestException('Email o Password no valido');
 
+    delete user.password;
+    delete user.email;
+    
     return {
       ...user,
       token: this.getJwtToken({ id: user.id }),
     };
   }
 
-  private getJwtToken(payload: JwtPayload) {
+  private getJwtToken(payload: JwtPayload): string {
     const token = this.jwtService.sign(payload);
     return token;
   }
