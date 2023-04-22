@@ -7,13 +7,18 @@ import {
   Entity,
   OneToMany,
   PrimaryGeneratedColumn,
+  CreateDateColumn,
+  UpdateDateColumn,
+  DeleteDateColumn
 } from 'typeorm';
+import { Exclude, Expose, Transform } from 'class-transformer';
 
 @Entity()
 export class User {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
+  @Expose()
   @Column('text', {
     unique: true,
   })
@@ -41,6 +46,18 @@ export class User {
   })
   roles: string[];
 
+  @CreateDateColumn({
+    name: 'created_at',
+    type: 'timestamp',
+  })
+  createdAt: Date;
+
+  @UpdateDateColumn({ name: 'updated_at'})
+  updatedAt: Date;
+
+  @DeleteDateColumn({ name: 'deleted_at', select: false })
+  deletedAt: Date;
+
   @OneToMany(() => Product, (product) => product.user)
   product: Product;
 
@@ -55,5 +72,18 @@ export class User {
   @BeforeUpdate()
   checkFieldsBeforeUpdate() {
     this.checkFieldsBeforeInsert();
+  }
+
+  @Expose()
+  toJSON() {
+    return {
+      id: this.id,
+      email: this.email,
+      firstname: this.firstname,
+      lastname: this.lastname,
+      phone: this.phone,
+      roles: this.roles,
+      createdAt: this.createdAt
+    };
   }
 }

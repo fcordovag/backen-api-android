@@ -22,6 +22,9 @@ export class ProductsService {
   async create(createProductDto: CreateProductDto, user: User) {
     createProductDto.name = createProductDto.name.toLowerCase();
 
+    delete user.password
+    delete user.roles
+
     const ProductFound = await this.productRepository.findOneBy({
       name: createProductDto.name,
     });
@@ -46,14 +49,18 @@ export class ProductsService {
   async findAll(paginationDto: PaginationDto) {
     const { limit = 10, offset = 0 } = paginationDto;
     try {
-      return await this.productRepository.find({
+      const dataProducts = await this.productRepository.find({
         take: limit,
         skip: offset,
       });
+     return dataProducts
+     
     } catch (error) {
       console.log(error);
     }
   }
+
+  
 
   async findOne(term: string) {
     let product: Product;

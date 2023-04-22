@@ -84,8 +84,7 @@ export class AuthService {
   }
 
   async getPerfil(user: User) {
-    const { id, email, firstname, roles, lastname, phone } = user;
-    return { id, email, firstname, roles, lastname, phone };
+    return user;
   }
 
   private handleDBErrors(error: any): never {
