@@ -5,7 +5,7 @@ import {
   JoinTable,
   ManyToOne,
   OneToMany,
-  PrimaryGeneratedColumn,
+  PrimaryGeneratedColumn
 } from 'typeorm';
 import { Payment } from './payment.entity';
 
@@ -16,6 +16,7 @@ export class Invoice {
 
   @CreateDateColumn({
     name: 'created_at',
+    type: 'timestamp',
   })
   createdAt: Date;
 

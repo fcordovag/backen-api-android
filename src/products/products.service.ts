@@ -104,7 +104,7 @@ export class ProductsService {
     if (!product) throw new NotFoundException('producto no existe');
 
     try {
-      await this.productRepository.delete(id);
+      await this.productRepository.softDelete(id);
       return { message: 'Eliminado con exito' };
     } catch (error) {
       console.log(error);

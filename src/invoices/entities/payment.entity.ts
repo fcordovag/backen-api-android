@@ -1,4 +1,4 @@
-import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, ManyToOne, PrimaryGeneratedColumn, CreateDateColumn } from 'typeorm';
 import { Product } from '../../products/entities/product.entity';
 import { Invoice } from './invoice.entity';
 
@@ -9,6 +9,12 @@ export class Payment {
 
   @Column('int')
   quantity?: number;
+
+  @CreateDateColumn({
+    name: 'created_at',
+    type: 'timestamp',
+  })
+  createdAt: Date;
 
   @ManyToOne(() => Product, (product) => product.payment, {
     onDelete: 'CASCADE',
@@ -21,4 +27,5 @@ export class Payment {
     onUpdate: 'CASCADE',
   })
   invoice: Invoice;
+  
 }
